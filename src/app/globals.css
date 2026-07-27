@@ -128,7 +128,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 100px; /* Increased from 80px to accommodate the taller logo */
 }
 
 .brand-section {
@@ -138,9 +138,10 @@ p {
 }
 
 .brand-logo-img {
-  height: 48px;
+  height: 64px; /* Increased from 48px */
   width: auto;
   object-fit: contain;
+  border-radius: 4px; /* Soften the edges of the black logo box */
 }
 
 .brand-titles {

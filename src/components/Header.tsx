@@ -24,10 +24,9 @@ export default function Header() {
           <Image
             src="/pinnacle-logo.png"
             alt="Royal LePage Pinnacle Real Estate Logo"
-            width={180}
-            height={48}
+            width={240}
+            height={64}
             className="brand-logo-img"
-            style={{ width: "auto", height: "auto" }}
             priority
           />
           <div className="brand-titles">
