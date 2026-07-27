@@ -8,11 +8,14 @@ export default function SearchHero() {
   return (
     <div className="search-hero-container">
       <div className="search-tabs">
-        {["Buy", "Rent", "Sold"].map((tab) => (
+        {["Buy", "Rent"].map((tab) => (
           <button
             key={tab}
             className={`search-tab ${activeTab === tab ? "active" : ""}`}
             onClick={() => setActiveTab(tab)}
+            disabled
+            type="button"
+            aria-disabled="true"
           >
             {tab}
           </button>
@@ -23,12 +26,17 @@ export default function SearchHero() {
         <div className="search-inputs-grid">
           <div className="search-input-group">
             <label>Location</label>
-            <input type="text" placeholder="Oakville, Burlington, GTA..." />
+            <input 
+              type="text" 
+              placeholder="Oakville, Burlington, GTA..." 
+              disabled 
+              aria-disabled="true"
+            />
           </div>
           
           <div className="search-input-group">
             <label>Price Range</label>
-            <select>
+            <select disabled aria-disabled="true">
               <option>No Min</option>
               <option>$500k</option>
               <option>$1M</option>
@@ -38,7 +46,7 @@ export default function SearchHero() {
           
           <div className="search-input-group">
             <label>Beds</label>
-            <select>
+            <select disabled aria-disabled="true">
               <option>Any</option>
               <option>1+</option>
               <option>2+</option>
@@ -47,9 +55,16 @@ export default function SearchHero() {
             </select>
           </div>
           
-          <button className="search-submit-btn">
+          <button className="search-submit-btn" disabled type="button" aria-disabled="true">
             Search Listings
           </button>
+        </div>
+
+        <div className="search-integration-notice">
+          <svg className="notice-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+          <span>Search will be enabled once MLS® feed integration is complete</span>
         </div>
       </div>
 
@@ -60,7 +75,7 @@ export default function SearchHero() {
           margin: 2rem auto;
           background: #ffffff;
           border-radius: var(--radius-lg);
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
           overflow: hidden;
           border: 1px solid var(--border-light);
         }
@@ -78,15 +93,17 @@ export default function SearchHero() {
           background: none;
           font-weight: 600;
           font-size: 0.95rem;
-          cursor: pointer;
           color: var(--text-muted);
           transition: all 0.2s ease;
+          cursor: not-allowed;
+          opacity: 0.7;
         }
 
         .search-tab.active {
           background: #ffffff;
-          color: var(--text-primary);
-          border-bottom: 2px solid var(--text-primary);
+          color: var(--text-muted);
+          border-bottom: 2px solid var(--border-medium);
+          opacity: 0.85;
         }
 
         .search-box {
@@ -98,6 +115,7 @@ export default function SearchHero() {
           grid-template-columns: 2fr 1fr 1fr auto;
           gap: 1.5rem;
           align-items: flex-end;
+          opacity: 0.6;
         }
 
         .search-input-group {
@@ -121,22 +139,41 @@ export default function SearchHero() {
           border-radius: var(--radius-sm);
           font-family: inherit;
           font-size: 0.95rem;
+          background: var(--bg-subtle);
+          color: var(--text-muted);
+          cursor: not-allowed;
           outline: none;
         }
 
         .search-submit-btn {
-          background: var(--bg-dark);
-          color: #ffffff;
+          background: var(--border-medium);
+          color: var(--text-muted);
           border: none;
           padding: 0.85rem 2rem;
           border-radius: var(--radius-sm);
           font-weight: 600;
-          cursor: pointer;
-          transition: opacity 0.2s ease;
+          cursor: not-allowed;
+          transition: none;
         }
 
-        .search-submit-btn:hover {
-          opacity: 0.9;
+        .search-integration-notice {
+          margin-top: 1.5rem;
+          padding: 0.85rem 1.25rem;
+          background-color: var(--bg-subtle);
+          border-radius: var(--radius-sm);
+          border-left: 3px solid var(--border-medium);
+          font-size: 0.88rem;
+          color: var(--text-secondary);
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          justify-content: center;
+        }
+
+        .notice-icon {
+          color: var(--text-muted);
+          flex-shrink: 0;
         }
 
         @media (max-width: 768px) {
