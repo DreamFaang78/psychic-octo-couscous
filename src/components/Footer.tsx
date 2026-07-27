@@ -1,54 +1,66 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="footer-wrapper">
-      <div className="container">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <h3 style={{ fontSize: "1.1rem", marginBottom: "0.25rem" }}>
-              Karan Kang, REALTOR®
-            </h3>
-            <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", marginBottom: "0.5rem" }}>
-              Royal LePage Pinnacle Real Estate — Independently Owned and Operated Brokerage
-            </p>
-            <p style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
-              17 - 1075 North Service Road W., Oakville, ON L6M 2G2
-            </p>
-          </div>
-
-          <nav className="footer-nav" aria-label="Footer Navigation">
-            <Link href="/" className="nav-link">Home</Link>
-            <Link href="/contact" className="nav-link">Contact</Link>
-            <Link href="/privacy-policy" className="nav-link">Privacy Policy</Link>
-            <Link href="/terms-of-service" className="nav-link">Terms of Service</Link>
-          </nav>
+      <div className="container footer-content">
+        {/* 1. Royal LePage Pinnacle Logo (Secondary) */}
+        <div className="footer-logo-section">
+          <Image
+            src="/pinnacle-logo.png"
+            alt="Royal LePage Pinnacle Real Estate"
+            width={160}
+            height={42}
+            className="footer-brand-logo"
+          />
         </div>
 
-        <div className="footer-disclaimers">
-          {/* Reserved TRREB/PropTx feed status placeholder - coded for compliance */}
-          <div className="trreb-data-feed-status" id="trreb-data-feed-container">
-            <p className="feed-status-text">
-              Data provided by TRREB/PropTx — Last updated: <span className="feed-date">[Feed Activation Pending]</span>
-            </p>
-            {/* 
-              COMPLIANCE REQUIREMENT NOTE:
-              When live MLS® listing feed connects, the brokerage name "Royal LePage Pinnacle Real Estate"
-              will display inside listing details in the exact same font family and size as all other details,
-              never visually separated.
-            */}
-          </div>
+        {/* 2. Contact Information */}
+        <div className="footer-contact-info">
+          <p className="footer-agent-name">Karan Kang, REALTOR®</p>
+          <p className="footer-phone">437-998-5873</p>
+          <p className="footer-location">Royal LePage Realtor® Oakville</p>
+          <p className="footer-tagline">Your Oakville Royal LePage Real Estate Agent</p>
+        </div>
 
-          {/* CREA-Mandated Trademark Disclaimers */}
+        {/* 3. Credential Line */}
+        <div className="footer-credential">
+          <p>Karan Kang is a Fully Licensed REALTOR® at Royal LePage Pinnacle Real Estate.</p>
+        </div>
+
+        {/* 4. Quick Links Row */}
+        <nav className="footer-quick-links" aria-label="Footer Quick Links">
+          <Link href="/">Home</Link>
+          <span className="separator">|</span>
+          <Link href="/#about">About</Link>
+          <span className="separator">|</span>
+          <Link href="/contact">Contact</Link>
+          <span className="separator">|</span>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+          <span className="separator">|</span>
+          <Link href="/terms-of-service">Terms of Service</Link>
+        </nav>
+
+        {/* 5. Trademark Disclaimer Text */}
+        <div className="footer-trademarks">
           <p className="legal-disclaimer-text">
-            REALTOR®, REALTORS®, and the REALTOR® logo are certification marks that are owned by REALTOR® Canada Inc. and licensed exclusively to The Canadian Real Estate Association (CREA). These certification marks identify real estate professionals who are REALTOR® members of CREA and who must abide by CREA's By-Laws, Rules, and the REALTOR® Code. The MLS® trademark and the MLS® logo are owned by CREA and identify the quality of services provided by real estate professionals who are REALTOR® members of CREA.
+            REALTOR®, REALTORS®, and the REALTOR® logo are certification marks that are owned by REALTOR® Canada Inc. and licensed exclusively to The Canadian Real Estate Association (CREA). These certification marks identify real estate professionals who are REALTOR® members of CREA and who must abide by CREA&apos;s By-Laws, Rules, and the REALTOR® Code. The MLS® trademark and the MLS® logo are owned by CREA and identify the quality of services provided by real estate professionals who are REALTOR® members of CREA.
           </p>
+        </div>
 
-          <p className="legal-disclaimer-text" style={{ marginTop: "1rem" }}>
-            © {currentYear} KangHomes.ca — Karan Kang, REALTOR® | Royal LePage Pinnacle Real Estate. All rights reserved.
+        {/* 6. Legal/Accuracy Disclaimer */}
+        <div className="footer-legal-accuracy">
+          <p className="legal-disclaimer-text">
+            The real estate information provided on this website is for general informational purposes only. While we strive to keep information accurate and current, we do not warrant the accuracy or completeness of any real estate information included on this site.
           </p>
+        </div>
+
+        {/* 7. Copyright Line */}
+        <div className="footer-copyright">
+          <p>© {currentYear} All Rights Reserved</p>
         </div>
       </div>
     </footer>
