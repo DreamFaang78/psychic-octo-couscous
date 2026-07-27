@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Karan Kang, REALTOR® | KangHomes.ca",
+  title: "Privacy Policy | Karan Kang, REALTOR® | Royal LePage Pinnacle Real Estate | KangHomes.ca",
   description: "PIPEDA-compliant Privacy Policy for KangHomes.ca operated by Karan Kang, REALTOR® with Royal LePage Pinnacle Real Estate.",
 };
 

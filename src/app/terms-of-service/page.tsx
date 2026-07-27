@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Karan Kang, REALTOR® | KangHomes.ca",
+  title: "Terms of Service | Karan Kang, REALTOR® | Royal LePage Pinnacle Real Estate | KangHomes.ca",
   description: "Terms of Service and legal disclaimer for KangHomes.ca operated by Karan Kang, REALTOR® with Royal LePage Pinnacle Real Estate.",
 };
 
@@ -63,7 +63,7 @@ export default function TermsOfService() {
       <div className="policy-section">
         <h3>5. Intellectual Property & Trademarks</h3>
         <p>
-          REALTOR®, REALTORS®, and the REALTOR® logo are certification marks owned by REALTOR® Canada Inc. and licensed to CREA. The trademarks MLS®, Multiple Listing Service®, and associated logos are owned by CREA. All other branding, graphics, and textual content are protected by Canadian intellectual property laws.
+          REALTOR®, REALTORS®, and the REALTOR® logo are certification marks that are owned by REALTOR® Canada Inc. and licensed exclusively to The Canadian Real Estate Association (CREA). These certification marks identify real estate professionals who are REALTOR® members of CREA and who must abide by CREA&apos;s By-Laws, Rules, and the REALTOR® Code. The MLS® trademark and the MLS® logo are owned by CREA and identify the quality of services provided by real estate professionals who are REALTOR® members of CREA. All other branding, graphics, and textual content are protected by Canadian intellectual property laws.
         </p>
       </div>
 

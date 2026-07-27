@@ -22,11 +22,12 @@ export default function Header() {
       <div className="container header-inner">
         <Link href="/" className="brand-section">
           <Image
-            src="/royal-lepage-logo.png"
+            src="/pinnacle-logo.png"
             alt="Royal LePage Pinnacle Real Estate Logo"
             width={180}
             height={48}
             className="brand-logo-img"
+            style={{ width: "auto", height: "auto" }}
             priority
           />
           <div className="brand-titles">

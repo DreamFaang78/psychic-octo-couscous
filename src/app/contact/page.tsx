@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Contact Karan Kang, REALTOR® | KangHomes.ca",
+  title: "Contact Karan Kang, REALTOR® | Royal LePage Pinnacle Real Estate | KangHomes.ca",
   description: "Contact information for Karan Kang, REALTOR® at Royal LePage Pinnacle Real Estate in Oakville, ON.",
 };
 

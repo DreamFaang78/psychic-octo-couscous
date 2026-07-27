@@ -35,7 +35,7 @@ export default function Footer() {
             </p>
             {/* 
               COMPLIANCE REQUIREMENT NOTE:
-              When live MLS listing feed connects, the brokerage name "Royal LePage Pinnacle Real Estate"
+              When live MLS® listing feed connects, the brokerage name "Royal LePage Pinnacle Real Estate"
               will display inside listing details in the exact same font family and size as all other details,
               never visually separated.
             */}
@@ -43,10 +43,7 @@ export default function Footer() {
 
           {/* CREA-Mandated Trademark Disclaimers */}
           <p className="legal-disclaimer-text">
-            REALTOR®, REALTORS®, and the REALTOR® logo are certification marks owned by REALTOR® Canada Inc. and licensed to The Canadian Real Estate Association (CREA). They identify real estate professionals who are members of CREA.
-          </p>
-          <p className="legal-disclaimer-text">
-            The trademarks MLS®, Multiple Listing Service® and the associated logos are owned by CREA and identify the quality of services provided by real estate professionals who are members of CREA.
+            REALTOR®, REALTORS®, and the REALTOR® logo are certification marks that are owned by REALTOR® Canada Inc. and licensed exclusively to The Canadian Real Estate Association (CREA). These certification marks identify real estate professionals who are REALTOR® members of CREA and who must abide by CREA's By-Laws, Rules, and the REALTOR® Code. The MLS® trademark and the MLS® logo are owned by CREA and identify the quality of services provided by real estate professionals who are REALTOR® members of CREA.
           </p>
 
           <p className="legal-disclaimer-text" style={{ marginTop: "1rem" }}>

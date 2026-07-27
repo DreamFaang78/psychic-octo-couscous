@@ -17,7 +17,7 @@ export default function Home() {
             <div className="headshot-frame">
               <Image
                 src="/headshot.jpg"
-                alt="Karan Kang, REALTOR®"
+                alt="Karan Kang, REALTOR® — Royal LePage Pinnacle Real Estate"
                 width={320}
                 height={400}
                 className="headshot-img"
@@ -71,12 +71,12 @@ export default function Home() {
         <div className="container" style={{ maxWidth: "800px" }}>
           <h2 style={{ fontSize: "1.75rem", marginBottom: "1rem" }}>About Karan Kang</h2>
           <p style={{ fontSize: "1.1rem", lineHeight: 1.7, color: "var(--text-secondary)" }}>
-            Karan Kang is a dedicated REALTOR® with Royal LePage Pinnacle Real Estate, specializing in residential property guidance across Oakville and the Greater Toronto Area (GTA). Driven by integrity, local market expertise, and personalized client service, Karan provides strategic counsel to buyers, sellers, and investors navigating local real estate transactions.
+            Karan Kang is a dedicated REALTOR® with Royal LePage Pinnacle Real Estate, specializing in residential property guidance across Oakville and the Greater Toronto Area (GTA). Karan Kang is a Fully Licensed REALTOR® at Royal LePage Pinnacle Real Estate. Driven by integrity, local market expertise, and personalized client service, Karan provides strategic counsel to buyers, sellers, and investors navigating local real estate transactions.
           </p>
         </div>
       </section>
 
-      {/* MLS Search Launching Soon Section & Legal Notices */}
+      {/* MLS® Search Launching Soon Section & Legal Notices */}
       <section className="section">
         <div className="container" style={{ maxWidth: "860px" }}>
           <div className="mls-placeholder-card">
