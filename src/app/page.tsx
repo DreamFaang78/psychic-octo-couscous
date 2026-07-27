@@ -7,9 +7,25 @@ export const metadata: Metadata = {
   description: "Official page for Karan Kang, REALTOR® at Royal LePage Pinnacle Real Estate in Oakville, ON. Serving Oakville and the Greater Toronto Area.",
 };
 
+import SearchHero from "@/components/SearchHero";
+import PropertyCard from "@/components/PropertyCard";
+
 export default function Home() {
+  const featuredProperties = [
+    { id: "1", price: "$1,249,000", address: "123 Maple Grove Dr, Oakville", beds: 4, baths: 3, sqft: "2,800", tag: "Coming Soon", image: "/placeholder-property.jpg" },
+    { id: "2", price: "$899,000", address: "45-2080 Lakeshore Rd, Oakville", beds: 2, baths: 2, sqft: "1,150", tag: "Just Listed", image: "/placeholder-property.jpg" },
+    { id: "3", price: "$2,150,000", address: "786 Chartwell Rd, Oakville", beds: 5, baths: 4, sqft: "4,200", tag: "Sold", image: "/placeholder-property.jpg" },
+  ];
+
   return (
     <>
+      {/* Search Hero Section */}
+      <section className="section" style={{ paddingBottom: "2rem" }}>
+        <div className="container">
+          <SearchHero />
+        </div>
+      </section>
+
       {/* Hero & Above the fold content */}
       <section className="section section-border" style={{ backgroundColor: "#ffffff" }}>
         <div className="container">
@@ -62,6 +78,31 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Listings Section */}
+      <section className="section section-border">
+        <div className="container">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2.5rem" }}>
+            <div>
+              <h2 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>Featured Listings</h2>
+              <p className="subheading">Curated properties in Oakville and the GTA.</p>
+            </div>
+            <Link href="/contact" className="badge" style={{ padding: "0.6rem 1.2rem", cursor: "pointer" }}>
+              Inquire Now
+            </Link>
+          </div>
+          
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", 
+            gap: "2rem" 
+          }}>
+            {featuredProperties.map(prop => (
+              <PropertyCard key={prop.id} {...prop} />
+            ))}
           </div>
         </div>
       </section>
