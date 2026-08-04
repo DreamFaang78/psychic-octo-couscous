@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 interface PropertyCardProps {
   id: string;
@@ -15,21 +15,27 @@ interface PropertyCardProps {
 }
 
 export default function PropertyCard({ id, price, address, beds, baths, sqft, image, tag }: PropertyCardProps) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <Link href={`/listings/${id}`} className="property-card">
       <div className="card-image-wrapper">
-        {image ? (
-          <Image
+        {image && !imgError ? (
+          <img
             src={image}
             alt={address}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ objectFit: "cover" }}
             className="property-image-display"
+            onError={() => setImgError(true)}
+            loading="lazy"
           />
         ) : (
           <div className="image-placeholder">
-            <span className="placeholder-text">Property Image</span>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M3 21h18M3 10l9-7 9 7v11H3V10z" />
+              <path d="M9 14h6v7H9v-7z" />
+            </svg>
+            <span className="placeholder-text">Royal LePage Listing</span>
+            <span className="placeholder-subtext">No Photos Provided</span>
           </div>
         )}
         {tag && <span className="property-tag">{tag}</span>}
@@ -79,12 +85,51 @@ export default function PropertyCard({ id, price, address, beds, baths, sqft, im
           display: flex;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
+        }
+
+        .property-image-display {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: transform 0.3s ease;
+        }
+
+        .property-card:hover .property-image-display {
+          transform: scale(1.04);
         }
 
         .image-placeholder {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
           color: var(--text-muted);
-          font-weight: 500;
-          font-size: 0.85rem;
+          text-align: center;
+          padding: 1rem;
+        }
+
+        .image-placeholder svg {
+          color: #a1a1aa;
+          margin-bottom: 0.2rem;
+        }
+
+        .placeholder-text {
+          font-weight: 600;
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+        }
+
+        .placeholder-subtext {
+          font-size: 0.7rem;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         .property-tag {

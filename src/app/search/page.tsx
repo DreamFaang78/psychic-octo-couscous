@@ -32,15 +32,16 @@ function SearchResultsContent() {
         if (city) filters.city = city;
         if (maxPrice && maxPrice !== "any") filters.maxPrice = Number(maxPrice);
         if (bedrooms && bedrooms !== "any") filters.bedrooms = Number(bedrooms);
-        
-        const res = await apiService.getProperties(filters);
+
+        // ── AMPRE IDX: calls /api/ampre/properties (server-side, token-secured) ──
+        const res = await apiService.getAmpreProperties(filters);
         if (res.success) {
           setProperties(res.data || []);
         } else {
-          setError(res.message || "Failed to load properties.");
+          setError(res.message || "Failed to load MLS® listings.");
         }
       } catch (err: any) {
-        setError("Unable to connect to the properties database server.");
+        setError("Unable to connect to the MLS® listings service. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -56,29 +57,55 @@ function SearchResultsContent() {
     setAiLoading(true);
     setAiResponse("");
     try {
-      // Step 1: Query the AI Assistant
-      const res = await apiService.queryAIAssistant(aiPrompt);
-      if (res.success) {
-        setAiResponse(res.data?.response || res.message);
-        
-        // Step 2: Parse prompt into filters if possible and update listings
-        const parseRes = await apiService.parseAISearch(aiPrompt);
-        if (parseRes.success && parseRes.data?.filters) {
-          const parsedFilters = parseRes.data.filters;
-          // Apply parsed filters
-          const searchRes = await apiService.getProperties(parsedFilters);
-          if (searchRes.success) {
-            setProperties(searchRes.data || []);
-          }
-        }
-      } else {
-        setAiResponse("Sorry, I was unable to parse that request. Please try again with details like 'detached home with 3 bedrooms under $1.5M'.");
+      // Parse natural language prompt locally — no backend required
+      const prompt = aiPrompt.toLowerCase();
+
+      // Extract city — look for known GTA cities
+      const cities = ["oakville","brampton","toronto","mississauga","hamilton","burlington",
+        "milton","ajax","pickering","whitby","oshawa","vaughan","richmond hill","markham",
+        "newmarket","aurora","barrie","kingston","london","cambridge","kitchener","waterloo"];
+      const matchedCity = cities.find(c => prompt.includes(c));
+
+      // Extract bedrooms — "3 bed", "3-bed", "3br", "3 bedroom"
+      const bedsMatch = prompt.match(/(\d)\s*(?:bed|br|bedroom)/);
+      const beds = bedsMatch ? Number(bedsMatch[1]) : undefined;
+
+      // Extract max price — "$1.5m", "$1,500,000", "1500000", "1.5 million"
+      let maxPrice: number | undefined;
+      const priceM = prompt.match(/\$?([\d.]+)\s*m(?:illion)?/);
+      const priceK = prompt.match(/\$?([\d,]+)k/);
+      const priceRaw = prompt.match(/\$?([\d,]{6,})/);
+      if (priceM)   maxPrice = Math.round(parseFloat(priceM[1]) * 1_000_000);
+      else if (priceK) maxPrice = Math.round(parseFloat(priceK[1].replace(/,/g, '')) * 1_000);
+      else if (priceRaw) maxPrice = parseInt(priceRaw[1].replace(/,/g, ''), 10);
+
+      const filters: any = {};
+      if (matchedCity) filters.city     = matchedCity;
+      if (beds)        filters.bedrooms = beds;
+      if (maxPrice)    filters.maxPrice = maxPrice;
+
+      // Build a human-readable summary
+      const parts = [];
+      if (matchedCity) parts.push(`city: ${matchedCity.charAt(0).toUpperCase() + matchedCity.slice(1)}`);
+      if (beds)        parts.push(`${beds}+ bedrooms`);
+      if (maxPrice)    parts.push(`max $${maxPrice.toLocaleString()}`);
+
+      setAiResponse(
+        parts.length > 0
+          ? `Searching for listings with ${parts.join(", ")}…`
+          : "Showing all active listings — try including a city, bedroom count, or price (e.g. \"3 bed detached in Oakville under $1.5M\")."
+      );
+
+      const searchRes = await apiService.getAmpreProperties(filters);
+      if (searchRes.success) {
+        setProperties(searchRes.data || []);
       }
-    } catch (err) {
-      setAiResponse("The AI Assistant is currently offline. Please try again later or use the manual search options above.");
+    } catch {
+      setAiResponse("Search failed. Please use the filters above or try again later.");
     } finally {
       setAiLoading(false);
     }
+
   };
 
   return (
@@ -126,13 +153,13 @@ function SearchResultsContent() {
                 <PropertyCard
                   key={prop.id}
                   id={prop.id}
-                  price={`$${prop.price.toLocaleString()}`}
-                  address={`${prop.address}, ${prop.city}, ${prop.province}`}
-                  beds={prop.bedrooms}
-                  baths={prop.bathrooms}
+                  price={`$${Number(prop.price).toLocaleString()}`}
+                  address={[prop.address, prop.city, prop.province].filter(Boolean).join(", ")}
+                  beds={prop.bedrooms ?? 0}
+                  baths={prop.bathrooms ?? 0}
                   sqft={prop.squareFeet ? prop.squareFeet.toString() : "N/A"}
-                  image={prop.images?.[0]?.url || ""}
-                  tag={prop.propertyType}
+                  image={prop.image || ""}
+                  tag={prop.propertyType || ""}
                 />
               ))}
             </div>
