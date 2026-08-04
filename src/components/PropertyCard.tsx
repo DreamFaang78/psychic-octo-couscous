@@ -18,9 +18,20 @@ export default function PropertyCard({ id, price, address, beds, baths, sqft, im
   return (
     <Link href={`/listings/${id}`} className="property-card">
       <div className="card-image-wrapper">
-        <div className="image-placeholder">
-          <span className="placeholder-text">Property Image</span>
-        </div>
+        {image ? (
+          <Image
+            src={image}
+            alt={address}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: "cover" }}
+            className="property-image-display"
+          />
+        ) : (
+          <div className="image-placeholder">
+            <span className="placeholder-text">Property Image</span>
+          </div>
+        )}
         {tag && <span className="property-tag">{tag}</span>}
       </div>
       
